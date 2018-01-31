@@ -33,7 +33,7 @@ var jsonp = function(url){
     window.document.getElementsByTagName('head')[0].appendChild(script);
 };
 
-jsonp("http://spreadsheets.google.com/a/google.com/tq?key=" + sheetID + "&tq=" + encodeURIComponent(sheetQuery) + "&tqx=responseHandler:callback");
+jsonp("https://spreadsheets.google.com/a/google.com/tq?key=" + sheetID + "&tq=" + encodeURIComponent(sheetQuery) + "&tqx=responseHandler:callback");
 
 
 function callback(data){
