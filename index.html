@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rafful</title>
+	
+	<!-- Mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- Meta Info-->
+	<meta name="author" content="">
+    <meta name="description" content="">
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="">
+	
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- MaterializeCSS -->
+    <link rel="stylesheet" href="css/style.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+	
+</head>
+<body>
+    <header class="center">
+        <h4>Raffle Search</h4>
+        <h6>Enter your ticket(s) to find out the prizes you win!</h6>
+    </header>
+    <main class="container">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#tab1">Start</a></li>
+                    <li class="tab col s3"><a href="#tab2">Advanced</a></li>
+                    <li class="tab col s3"><a href="#tab3">Prizes</a></li>
+                </ul>
+            </div>
+            
+            <div id="tab1" class="col s12">
+                <div class="row">
+                    <ol class="col s12">
+                        <li>Enter the range &#45; start and end number &#45; into the boxes below, we will calculate the rest</li>
+                        <li>If you have nonconsecutive tickets, uncheck the box to the left to change into single input</li>
+                        <li>When you're ready, hit the <b>Start Search</b> button and we will tell you what prizes you've won&#33;</li>
+                    </ol>
+                    <div id="tickets" class="col s12">
+                        <div id="tix_1" class="row">
+                            <span class="col s3 check"><input type="checkbox" id="tix_type_1" class="filled-in" checked="checked"><label for="tix_type_1">Range</label></span>
+                            <input type="number" class="tix start center col s3" placeholder="start">
+                            <span class="col s1 to">to</span>
+                            <input type="number" class="tix end center col s3" placeholder="end">
+                            <span class="col s1 addTix"><button class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></button></span>
+                        </div>
+                    </div>
+                    <div class="col s12 center">
+                        <button id="search" class="btn col s8 offset-s2">Search!</button>
+                    </div>
+                </div>        
+                <div id="thankYou" class="row hide">
+                    <div class="col s12">
+                        <h5>We're Sorry &gt;&#95;&#95;&lt;</h5>
+                        <p>Oops, we couldn't find any prizes matching the <span></span> ticket(s) you put in, you can take a look at all our prizes <a href="#" class="tabNav underline" data-tab_target="tab3">here</a>. <br><br>Here is a list of your tickets:</p>
+                        <p id="listAllTix"></p>
+                    </div>
+                </div>                
+                <div id="tableContainer" class="row hide">
+                    <div class="col s12">
+                        <table id="rafflePrize" class="striped">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+            
+            <div id="tab2" class="col s12">
+                <div class="row">
+                    <ol class="col s12">
+                        <li>Use dashes &quot; - &quot; to specify start &amp; end of a group of tickets: <i>221001-221011</i></li>
+                        <li>Use commas &quot; , &quot; to separate different groups or single tickets: <i>221001, 221003, 221005-221009</i></li>
+                        <li>Only 6 digits ticekt numbers, dashes &amp; commas are consider a valid input</li>
+                    </ol>
+                    <div class="col s12">
+                        <textarea id="tickets_adv" class="col s12 materialize-textarea" placeholder="Put in all ticket numbers here!"></textarea>
+                    </div>
+                    <div class="col s12 center">
+                        <button id="advSearch" class="btn col s8 offset-s2">Advanced Search!</button>
+                    </div>
+                </div>        
+                <div id="thankYou_adv" class="row hide">
+                    <div class="col s12">
+                        <h5>We're Sorry &gt;&#95;&#95;&lt;</h5>
+                        <p>Oops, we couldn't find any prizes matching the <span></span> ticket(s) you put in, you can take a look at all our prizes <a href="#" class="tabNav underline" data-tab_target="tab3">here</a>. <br><br>Here is a list of your tickets:</p>
+                        <p id="listAllTix_adv"></p>
+                    </div>
+                </div>                
+                <div id="tableContainer_adv" class="row hide">
+                    <div class="col s12">
+                        <table id="rafflePrize_adv" class="striped">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="tab3" class="col s12">
+                <div id="tableContainer_static" class="row">
+                    <div class="col s12">
+                        <table id="rafflePrize_static" class="striped">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="modal_prize" class="modal">
+            <div class="modal-content">
+                <h4 class="center">Congratulation!</h4>
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="btn btn-full btn-block modal-action modal-close waves-effect materialize-red lighten-2 white-text">OK</a>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer">
+        <div class="footer-copyright center" style="display:block;"></div>
+    </footer>
+    
+<!-- For Basic Read and Write
+<button id="authorize-button" style="display: none;">Authorize</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+
+<pre id="content"></pre>
+
+<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+-->
+
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="js/materializeCSS/bin/materialize.min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
